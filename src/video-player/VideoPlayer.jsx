@@ -25,6 +25,12 @@ export default function VideoPlay(){
         const video = videoRef.current;
         if(!video) return;
 
+        const resumeTime = parseFloat(localStorage.getItem('resumestart'));
+            if (!isNaN(resumeTime)) {
+                video.currentTime = resumeTime;
+                localStorage.removeItem('resumestart');
+            }
+
         const handlePlay = () => {
             setIsPlaying(true);
             setShowPauseOptions(false);

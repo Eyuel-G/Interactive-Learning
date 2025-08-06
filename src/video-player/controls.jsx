@@ -70,7 +70,7 @@ export default function Controls({togglePlay, isPlaying, videoRef, containerRef,
                 <input type='range'
                        value={progress}
                        onChange={handleSlider}
-                       className=' accent-blue-700 w-vw lg:w-4xl xl:w-6xl sm:w-xl xs:w'/>
+                       className=' accent-blue-700 w-vw sm:w-xl xs:w'/>
         
                 <span className='text-white text-xs text-center'>
                     {formatTime(currentTime)} /

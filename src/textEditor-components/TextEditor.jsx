@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import Editor from './editor'
+import Mapping from '../Syncronizing/sample-mapping'
 
 import { xml } from '@codemirror/lang-xml'
 import { css as cssLang } from '@codemirror/lang-css'
@@ -14,10 +16,27 @@ export default function TextEditor(){
     const[js, setJs] = useState('');
     const [selectedLang, setSelectedLang] = useState('HTML');
     const[srcDoc, setSrcDoc] = useState('');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const pausedTime = parseFloat(localStorage.getItem('pausedstart')) || 0;
+
+        const matched = Mapping.find(({ start, end }) => pausedTime >= start && pausedTime <= end);
+
+            if (matched) {
+                setHtml(matched.html);
+                setCss(matched.css);
+                setJs(matched.js);
+            } else {
+                setHtml('');
+                setCss('');
+                setJs('');
+            }
+    }, []);
 
 
     useEffect(()=>{
-        const timeout = setTimeout(()=>{
+        const startout = setTimeout(()=>{
             setSrcDoc(`
             <html>
                 <body>${html}</body>
@@ -27,8 +46,16 @@ export default function TextEditor(){
             `)
         }, 250)
 
-        return() => clearTimeout(timeout)
+        return() => clearTimeout(startout)
     }, [html, css, js])
+
+
+    function handleClick() {
+        const pausedTime = parseFloat(localStorage.getItem('pausedstart')) || 0;
+        localStorage.setItem('resumestart', pausedTime.toString());
+        navigate('/');
+    }
+
 
     return (
     <>
@@ -44,8 +71,12 @@ export default function TextEditor(){
                 >
                 <option value='HTML'>HTML</option>
                 <option value='CSS'>CSS</option>
-                <option value='Js'>JavaScript</option>
+                <option value='JavaScript'>JavaScript</option>
             </select>
+            <button
+                className='bg-orange-500 hover:bg-orange-700 px-2 mx-7 rounded-2xl border-1 shadow-2xl'
+                onClick = {handleClick}
+            >Return to Video</button>
     </div>
     <div
         className='flex justify-center gap-2 m-1'
@@ -73,7 +104,7 @@ export default function TextEditor(){
             />
         )}
         
-        {selectedLang === 'Js' &&(
+        {selectedLang === 'JavaScript' &&(
             <Editor
                 className='text-green-600 bg-blue-300 rounded-t-2xl'
                 display = "JavaScript"
@@ -85,7 +116,7 @@ export default function TextEditor(){
         </div>
 
 
-        <div className='h-vh w-sm min-w-xs lg:w-lg xl:w-xl xxl:w-xxl bg-white/25 overflow-hidden shadow rounded-t-2xl'>
+        <div className='h-vh w-sm min-w-xs lg:w-lg xl:w-xl xxl:w-xxl bg-white overflow-hidden shadow rounded-t-2xl'>
             <h1 className='text-white font-bold text-center bg-black'>Console</h1>
             <iframe        
              srcDoc = {srcDoc}   
