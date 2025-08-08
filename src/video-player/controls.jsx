@@ -66,11 +66,11 @@ export default function Controls({togglePlay, isPlaying, videoRef, containerRef,
                 onClick={togglePlay}
             >{isPlaying ? 'Pause' : 'Play'}</button>
 
-            <div className='flex flex-col'>
+            <div className='flex flex-col md:w-[380px] min-w-[300px]'>
                 <input type='range'
                        value={progress}
                        onChange={handleSlider}
-                       className=' accent-blue-700 w-vw sm:w-xl xs:w'/>
+                       className=' accent-blue-700'/>
         
                 <span className='text-white text-xs text-center'>
                     {formatTime(currentTime)} /

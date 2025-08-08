@@ -1,17 +1,15 @@
 import CodeMirror from '@uiw/react-codemirror'
 
 
-export default function Editor({className, value, onChange, extension, display}) {
+export default function Editor({value, onChange, extension}) {
 
 
   return (
-    <div className= {`w-sm min-w-xs lg:w-lg xl:w-xl xxl:w-xxl ${className}`}>
-        <div className='text-center font-bold font-mono'>
-             {display}
-        </div>
+    
         <CodeMirror
             value={value}
-            height="92vh"
+            className='relative xl:w-[93vw] lg:w-[93vw] md:w-[90vw] min-w-[811px]'
+            height='95vh'
             onChange={(val) => onChange(val)}
             extensions={[extension()]}
             theme="dark"
@@ -20,7 +18,6 @@ export default function Editor({className, value, onChange, extension, display})
                 lineWrapping: true,
             }}
         />
-    </div>
   )
 }
  

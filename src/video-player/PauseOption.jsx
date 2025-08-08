@@ -7,8 +7,8 @@ export default function PauseOption({videoRef, requestFullScreen, navigate}){
 
     function openTextEditor(){
         const pausedTime = videoRef.current.currentTime;
-        localStorage.setItem('pausedstart', pausedTime.toString());  // Save time to storage
-        navigate('/textEditor'); // Go to editor
+        localStorage.setItem('pausedstart', pausedTime.toString()); 
+        navigate('/textEditor');
     }
 
 
