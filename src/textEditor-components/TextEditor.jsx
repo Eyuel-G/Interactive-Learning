@@ -51,8 +51,10 @@ export default function TextEditor(){
 
 
     function handleClick() {
-        const pausedTime = parseFloat(localStorage.getItem('pausedstart')) || 0;
-        localStorage.setItem('resumestart', pausedTime.toString());
+        const pausedTime = localStorage.getItem('pausedstart') || "0";
+        const lastVideoSrc = localStorage.getItem('lastVideoSrc') || '';
+        localStorage.setItem('resumestart', pausedTime);
+        localStorage.setItem('resumeVideoSrc', lastVideoSrc);
         navigate('/');
     }
 

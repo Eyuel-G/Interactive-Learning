@@ -1,9 +1,9 @@
-import VideoPlayer from "./video-player/VideoPlayer"
+import Home from "./video-player/Home"
 
 export default function App(){
   return (
       <>
-        <VideoPlayer />
+        <Home />
       </>
   )
 }

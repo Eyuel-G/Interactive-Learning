@@ -1,4 +1,4 @@
-export default function PauseOption({videoRef, requestFullScreen, navigate}){
+export default function PauseOption({videoRef, containerRef, requestFullScreen, navigate}){
 
     function handleResume(){
         videoRef.current.play();
@@ -7,7 +7,9 @@ export default function PauseOption({videoRef, requestFullScreen, navigate}){
 
     function openTextEditor(){
         const pausedTime = videoRef.current.currentTime;
-        localStorage.setItem('pausedstart', pausedTime.toString()); 
+        const currentVideoSrc = videoRef.current.currentSrc || videoRef.current.src;
+        localStorage.setItem('pausedstart', pausedTime.toString());
+        localStorage.setItem('lastVideoSrc', currentVideoSrc); 
         navigate('/textEditor');
     }
 

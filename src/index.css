@@ -3,3 +3,12 @@
 body{
   background-color: rgb(33, 33, 33);
 }
+
+@layer utilities {
+  .scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none; 
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;   }
+}
